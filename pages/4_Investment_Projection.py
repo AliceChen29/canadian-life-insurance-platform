@@ -4,19 +4,11 @@ import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from investment_projection import project_investment_deterministic, project_investment_monte_carlo
+from ui_style import apply_style, back_button
 
 st.set_page_config(page_title="Investment Projection", layout="centered")
-
-st.markdown("""
-<style>
-[data-testid="stSidebarNav"] { display: none; }
-[data-testid="stSidebar"] { display: none; }
-</style>
-""", unsafe_allow_html=True)
-
-if st.button("← Back to Home"):
-    st.session_state.started = True
-    st.switch_page("app.py")
+apply_style()
+back_button()
 
 st.title("4. Investment Projection")
 st.caption("Compare potential investment growth over time.")
@@ -29,7 +21,10 @@ with col_b:
     expected_return = st.slider("Expected annual return (%)", 0.0, 12.0, 6.0, step=0.5) / 100
     investment_years = st.slider("Investment period (years)", 1, 40, 20)
 
-if st.button("Project My Investment"):
+if initial_investment == 0 and monthly_contribution == 0:
+    st.warning("Enter an initial investment or monthly contribution to see a projection.")
+
+if st.button("Project My Investment", type="primary"):
     deterministic = project_investment_deterministic(
         initial_investment=initial_investment,
         monthly_contribution=monthly_contribution,

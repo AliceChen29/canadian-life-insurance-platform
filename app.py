@@ -1,4 +1,6 @@
 import streamlit as st
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 st.set_page_config(
     page_title="Life Insurance Planning Tool",

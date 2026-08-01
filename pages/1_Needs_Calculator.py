@@ -4,19 +4,11 @@ import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from needs_calculator import calculate_coverage_need
+from ui_style import apply_style, back_button
 
 st.set_page_config(page_title="Needs Calculator", layout="centered")
-
-st.markdown("""
-<style>
-[data-testid="stSidebarNav"] { display: none; }
-[data-testid="stSidebar"] { display: none; }
-</style>
-""", unsafe_allow_html=True)
-
-if st.button("← Back to Home"):
-    st.session_state.started = True
-    st.switch_page("app.py")
+apply_style()
+back_button()
 
 st.title("1. Insurance Needs Calculator")
 st.caption("Estimate how much coverage you might need using the income replacement method.")
@@ -45,7 +37,13 @@ with st.expander("Advanced assumptions"):
              "is worth less than a dollar today."
     ) / 100
 
-if st.button("Calculate Coverage Need"):
+if income == 0:
+    st.warning("Annual income is $0 — income replacement will not contribute to the estimate.")
+
+if savings + existing_coverage > (income * replacement_years + debt):
+    st.info("Your existing savings and coverage may already meet a large share of your estimated need.")
+
+if st.button("Calculate Coverage Need", type="primary"):
     education_need = 50000 * dependants if dependants > 0 else 0
     final_expenses = 15000
 

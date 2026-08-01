@@ -5,19 +5,11 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from premium_model import estimate_annual_premium, estimate_monthly_premium
 from risk_score import calculate_risk_score, classify_risk
+from ui_style import apply_style, back_button
 
 st.set_page_config(page_title="Premium Calculator", layout="centered")
-
-st.markdown("""
-<style>
-[data-testid="stSidebarNav"] { display: none; }
-[data-testid="stSidebar"] { display: none; }
-</style>
-""", unsafe_allow_html=True)
-
-if st.button("← Back to Home"):
-    st.session_state.started = True
-    st.switch_page("app.py")
+apply_style()
+back_button()
 
 st.title("3. Premium Calculator")
 st.caption("Get an illustrative premium estimate. This is NOT a real insurance quote.")
@@ -31,7 +23,10 @@ bmi_category = st.selectbox("BMI category", ["Standard", "Elevated", "High"])
 medical_condition = st.checkbox("Any pre-existing medical condition?")
 occupation_risk = st.selectbox("Occupation risk level", ["Low", "Medium", "High"])
 
-if st.button("Estimate Premium"):
+if coverage == 0:
+    st.warning("Coverage amount is $0 — enter a coverage amount to get a meaningful premium estimate.")
+
+if st.button("Estimate Premium", type="primary"):
     annual = estimate_annual_premium(
         coverage=coverage, age=age, smoker=smoker,
         health_risk=health_risk, term_years=term_years
@@ -49,5 +44,8 @@ if st.button("Estimate Premium"):
     col2.metric("Est. Annual Premium", f"${annual:,.2f}")
 
     st.metric("Risk Score", f"{risk} ({risk_cat})")
+
+    if risk_cat in ("High", "Very High"):
+        st.info("A higher risk score reflects factors like age, smoking, and health status — this drives the higher premium above.")
 
     st.caption("This is an illustrative estimate for educational purposes only.")
