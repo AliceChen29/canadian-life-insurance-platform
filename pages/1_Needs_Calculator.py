@@ -6,6 +6,18 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from needs_calculator import calculate_coverage_need
 
 st.set_page_config(page_title="Needs Calculator", layout="centered")
+
+st.markdown("""
+<style>
+[data-testid="stSidebarNav"] { display: none; }
+[data-testid="stSidebar"] { display: none; }
+</style>
+""", unsafe_allow_html=True)
+
+if st.button("← Back to Home"):
+    st.session_state.started = True
+    st.switch_page("app.py")
+
 st.title("1. Insurance Needs Calculator")
 st.caption("Estimate how much coverage you might need using the income replacement method.")
 

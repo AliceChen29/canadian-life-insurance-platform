@@ -7,6 +7,18 @@ from premium_model import estimate_annual_premium, estimate_monthly_premium
 from risk_score import calculate_risk_score, classify_risk
 
 st.set_page_config(page_title="Premium Calculator", layout="centered")
+
+st.markdown("""
+<style>
+[data-testid="stSidebarNav"] { display: none; }
+[data-testid="stSidebar"] { display: none; }
+</style>
+""", unsafe_allow_html=True)
+
+if st.button("← Back to Home"):
+    st.session_state.started = True
+    st.switch_page("app.py")
+
 st.title("3. Premium Calculator")
 st.caption("Get an illustrative premium estimate. This is NOT a real insurance quote.")
 

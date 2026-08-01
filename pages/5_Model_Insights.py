@@ -3,6 +3,18 @@ import pandas as pd
 import os
 
 st.set_page_config(page_title="Model Insights", layout="centered")
+
+st.markdown("""
+<style>
+[data-testid="stSidebarNav"] { display: none; }
+[data-testid="stSidebar"] { display: none; }
+</style>
+""", unsafe_allow_html=True)
+
+if st.button("← Back to Home"):
+    st.session_state.started = True
+    st.switch_page("app.py")
+
 st.title("5. Model Insights")
 st.caption("Statistical analysis behind the premium estimation model, built in R.")
 

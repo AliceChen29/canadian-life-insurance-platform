@@ -6,6 +6,18 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from investment_projection import project_investment_deterministic, project_investment_monte_carlo
 
 st.set_page_config(page_title="Investment Projection", layout="centered")
+
+st.markdown("""
+<style>
+[data-testid="stSidebarNav"] { display: none; }
+[data-testid="stSidebar"] { display: none; }
+</style>
+""", unsafe_allow_html=True)
+
+if st.button("← Back to Home"):
+    st.session_state.started = True
+    st.switch_page("app.py")
+
 st.title("4. Investment Projection")
 st.caption("Compare potential investment growth over time.")
 

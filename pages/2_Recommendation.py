@@ -6,6 +6,18 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from recommendation import recommend_product
 
 st.set_page_config(page_title="Product Recommendation", layout="centered")
+
+st.markdown("""
+<style>
+[data-testid="stSidebarNav"] { display: none; }
+[data-testid="stSidebar"] { display: none; }
+</style>
+""", unsafe_allow_html=True)
+
+if st.button("← Back to Home"):
+    st.session_state.started = True
+    st.switch_page("app.py")
+
 st.title("2. Product Recommendation")
 st.caption("See which illustrative product type best fits your situation.")
 
