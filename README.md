@@ -38,7 +38,7 @@ real coverage decisions.
 Python, Streamlit, R (ggplot2, GLM), Excel (openpyxl-generated sensitivity workbook)
 
 ## Repository Structure
-'''
+```
 canadian-life-insurance-platform/
 ├── app.py # Home page / landing screen
 ├── pages/ # 5 tool pages (Needs, Recommendation, Premium,
@@ -66,7 +66,7 @@ canadian-life-insurance-platform/
 ├── images/ # Screenshots used in this README
 ├── requirements.txt
 └── README.md
-'''
+```
 ## How to Run Locally
 
 ```bash
